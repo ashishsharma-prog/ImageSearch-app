@@ -8,8 +8,9 @@ function ImageNavigator() {
   return (
     <NavigationContainer>
     <Stack.Navigator>
+     <Stack.Screen name="ImageScreen" component={ImageScreen} />
       <Stack.Screen name="Home" component={ HomeScreen} />
-      <Stack.Screen name="ImageScreen" component={ImageScreen} />
+      
       
     </Stack.Navigator>
     </NavigationContainer>
