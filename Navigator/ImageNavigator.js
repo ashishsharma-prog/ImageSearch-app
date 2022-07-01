@@ -9,7 +9,14 @@ function ImageNavigator() {
     <NavigationContainer>
     <Stack.Navigator>
     <Stack.Screen name="Home" component={ HomeScreen} />
-     <Stack.Screen name="ImageScreen" component={ImageScreen} />
+     <Stack.Screen name="ImageScreen" 
+     component={ImageScreen} 
+     //disable the header because we made our own header component
+     options={({ navigation ,route}) => ({
+      headerShown: false,
+      
+  })}
+     />
      
       
       

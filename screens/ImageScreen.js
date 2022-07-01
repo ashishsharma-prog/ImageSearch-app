@@ -1,12 +1,13 @@
 import React,{useEffect,useState} from 'react'
 import { StyleSheet, Text, View,FlatList ,Image,TextInput,ActivityIndicator} from 'react-native'
 import ImageComponent from '../components/ImageComponent'
-
+import HeaderComponent from '../components/HeaderComponent'
 const ImageScreen = ({navigation,route}) => {
-    
+   
     const SearchingItem = route.params?.searchItem
-    // const NumberOfGrid=route.params?.Grid
-    // const NumberOfKey = route.params?.key
+    const NumberOfGrid=route.params?.Grid?route.params?.Grid:2
+    const NumberOfKey = route.params?.key?route.params?.key:2
+    console.log(NumberOfGrid)
 const [Image, setImage] = useState([])
 
 const [currentPage,setCurrentPage] = useState(1)
@@ -58,18 +59,20 @@ const loadMoreItem = ()=>{
 
     return (
           <View style={styles.screen}>
-           
+           <HeaderComponent
+           navigation={navigation.navigate}//sending this navigation as a props to the header component
+           />
           <FlatList
             data={Image}
-            numColumns={2 }
-            key={2}
+            numColumns={NumberOfGrid}
+            key={NumberOfKey}
             keyExtractor={(item, index) => 'key' + index}
             renderItem={({item})=>{
                 return(
                     <ImageComponent 
                     image={item} 
-                    
-                    // navigation={navigation.navigate}
+                    grid={NumberOfGrid} //we pass this grid number to the image component we have to set width and height of the image acc to the grid
+                    navigation={navigation.navigate}
                     />
                 )
             }}
