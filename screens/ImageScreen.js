@@ -2,21 +2,25 @@ import React,{useEffect,useState} from 'react'
 import { StyleSheet, Text, View,FlatList ,Image,TextInput,ActivityIndicator} from 'react-native'
 import ImageComponent from '../components/ImageComponent'
 import HeaderComponent from '../components/HeaderComponent'
+import { useSelector ,useDispatch} from 'react-redux';
 const ImageScreen = ({navigation,route}) => {
-   
+    const dispatch = useDispatch()
     const SearchingItem = route.params?.searchItem
     const NumberOfGrid=route.params?.Grid?route.params?.Grid:2
     const NumberOfKey = route.params?.key?route.params?.key:2
-    console.log(NumberOfGrid)
+    // console.log(NumberOfGrid)
 const [Image, setImage] = useState([])
 
 const [currentPage,setCurrentPage] = useState(1)
    const [isloading, setLoading] = useState(false);
-
-useEffect(()=>{
+   const AllData = useSelector(state=>state.imageReducer)
+  
+  useEffect(()=>{
+    
     fetchImage()
-},[SearchingItem,currentPage])//whenver the page count change it will fetch new image
-const fetchImage = ()=>{
+},[SearchingItem,currentPage,AllData])//whenver the page count change it will fetch new image
+// adjust dependencies to your needs
+const fetchImage = async ()=>{
     setLoading(true)
     
     const ImageUrl = `https://api.flickr.com/services/rest?method=flickr.photos.search&api_key=712d124b3057ccb531a450d1a0324ff9&format=json&text=${SearchingItem}&nojsoncallback=true&page=${currentPage}&perpage=30&extras=url_s`
@@ -25,7 +29,7 @@ const fetchImage = ()=>{
     .then((response)=>response.json())
     .then((responsejson)=>{
        
-        const imageData = responsejson?.photos?.photo?.map((image)=>{
+        const imageData = responsejson?.photos?.photo?.map((image)=>{//map in all images collect server ,id , secret from each photo
             const path = 
             'https://live.staticflickr.com/' +
               image.server +
@@ -37,12 +41,14 @@ const fetchImage = ()=>{
               return path;
         })   
         
-      
+       
   setImage([...Image,...imageData])//add prev data and new data
-        
+  
       setLoading(false)
+       dispatch({type:"search",payload:Image})
     }).catch(error=>console.log(error))
 }
+
 const renderLoader=()=>{
     return(
         //if we load it show the activity indicator
@@ -63,7 +69,7 @@ const loadMoreItem = ()=>{
            navigation={navigation.navigate}//sending this navigation as a props to the header component
            />
           <FlatList
-            data={Image}
+            data={AllData}
             numColumns={NumberOfGrid}
             key={NumberOfKey}
             keyExtractor={(item, index) => 'key' + index}
@@ -79,7 +85,7 @@ const loadMoreItem = ()=>{
             ListFooterComponent={ renderLoader}
             onEndReached={loadMoreItem}
             onEndReachedThreshold={0.5}
-            extraData={Image}
+            extraData={AllData}
             />
         </View>
     )
