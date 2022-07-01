@@ -4,6 +4,7 @@ import { StyleSheet, Text, View,TextInput,Button,Image } from 'react-native'
 
 const HomeScreen = ({navigation,route}) => {
     const [textSearch,setTextSearch]=useState('')//to store the searching text
+    // console.log(textSearch.length)
     return (
         <View style={styles.screen}>
             <Text style={styles.text}> Welcome to the Photo Searcher App</Text>
@@ -16,7 +17,7 @@ const HomeScreen = ({navigation,route}) => {
                 }}
                 value={textSearch}
                 onChangeText={(text) => setTextSearch(text)}
-                placeholder='Search for news'
+                placeholder='Search Image'
                 placeholderTextColor='grey'
                 
                
@@ -28,10 +29,12 @@ const HomeScreen = ({navigation,route}) => {
                 onPress={()=>{
                     //when we press search button then this button navigate to the image screen with the params
                     // of search text which while used to search the image in the api
+                    
                     navigation.navigate('ImageScreen',{
                         searchItem:textSearch
                     })
                 }}
+                disabled={textSearch.length === 0 }
                 />
                 </View>
                 
