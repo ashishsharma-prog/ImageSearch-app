@@ -12,7 +12,7 @@ import ImageComponent from "../components/ImageComponent";
 import HeaderComponent from "../components/HeaderComponent";
 import { useSelector, useDispatch } from "react-redux";
 const BASE_URL = `https://pixabay.com/api/`;
-const KEY = '28432807-3fc283f72d247da4df7974f62'; 
+const KEY = '28442835-15d6dd851afc3b6f4679eaea9'; 
 const ImageScreen = ({navigation,route}) => {
     // console.log(route)
     const dispatch = useDispatch()
@@ -36,7 +36,7 @@ useEffect(()=>{
 
 const fetchImage = ()=>{
     setLoading(true)
-    let ImageUrl = `${BASE_URL}?key=${KEY}&format=json&q=${encodeURIComponent(SearchingItem )}&page=${currentPage}`;
+    let ImageUrl = `${BASE_URL}?key=${KEY}&format=json&q=${encodeURIComponent(SearchingItem)}&page=${currentPage}&per_page=30`;
     fetch(ImageUrl)
     .then((response)=>response.json())
     .then((responsejson)=>{
@@ -61,9 +61,9 @@ return(
 )
 }
 const loadMoreItem = ()=>{
-
-    setCurrentPage(currentPage +1)
     
+    setCurrentPage(currentPage +1)
+    fetchImage()
 }
 
 
