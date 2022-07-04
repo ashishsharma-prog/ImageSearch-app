@@ -1,8 +1,10 @@
 import React,{useState} from 'react'
 import { StyleSheet, Text, View,TextInput,Button,Image } from 'react-native'
 
-
+import { useSelector, useDispatch } from "react-redux";
 const HomeScreen = ({navigation,route}) => {
+    const dispatch = useDispatch();
+    const AllData = useSelector((state) => state.imageReducer);
     const [textSearch,setTextSearch]=useState('')//to store the searching text
     // console.log(textSearch.length)
     return (
@@ -33,7 +35,9 @@ const HomeScreen = ({navigation,route}) => {
                     navigation.navigate('ImageScreen',{
                         searchItem:textSearch
                     })
+                    dispatch({ type: "search", payload: AllData});
                 }}
+                
                 disabled={textSearch.length === 0 }
                 />
                 </View>
@@ -61,7 +65,7 @@ const styles = StyleSheet.create({
         marginHorizontal:10,
         color:"#d26374",
         fontWeight:'bold',
-        marginVertical:20
+        marginVertical:50
     },
     logo:{
         width:200,
