@@ -4,7 +4,7 @@ import { StyleSheet, Text, View,TextInput,Button,Image } from 'react-native'
 import { useSelector, useDispatch } from "react-redux";
 const HomeScreen = ({navigation,route}) => {
     const dispatch = useDispatch();
-    const AllData = useSelector((state) => state.imageReducer);
+    const AllData = useSelector((state) => state.imageReducer);//getting data from the global state
     const [textSearch,setTextSearch]=useState('')//to store the searching text
     // console.log(textSearch.length)
     return (
@@ -30,12 +30,12 @@ const HomeScreen = ({navigation,route}) => {
                  title="Search Here"
                 onPress={()=>{
                     //when we press search button then this button navigate to the image screen with the params
-                    // of search text which while used to search the image in the api
+                    // of search text which while used to search the image from the api
                     
                     navigation.navigate('ImageScreen',{
                         searchItem:textSearch
                     })
-                    dispatch({ type: "search", payload: AllData});
+                    dispatch({ type: "search", payload: AllData});//dispatch the data
                 }}
                 
                 disabled={textSearch.length === 0 }

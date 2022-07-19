@@ -24,7 +24,11 @@ if (grid === 4) {
     return (
         <TouchableOpacity
          style={{width:widthImage,height:heightImage,margin:3}}
-         
+         onPress={()=>{
+          props.navigation('singleImage',{
+              Image:props.image
+          })
+      }}
          >
             <Image style={styles.img} source={{uri:props.image}} />
             

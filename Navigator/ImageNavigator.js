@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen';
 import ImageScreen from '../screens/ImageScreen';
+import SingleImageScreen from '../screens/SingleImageScreen';
 const Stack = createStackNavigator();
 
 function ImageNavigator() {
@@ -24,7 +25,13 @@ function ImageNavigator() {
   })}
      />
      
+     <Stack.Screen name="singleImage" component={ SingleImageScreen} 
+    
+    options={({ navigation ,route}) => ({
+      headerShown: false,
       
+  })}
+    />
       
     </Stack.Navigator>
     </NavigationContainer>

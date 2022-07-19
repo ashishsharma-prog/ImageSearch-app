@@ -12,6 +12,7 @@ import {PersistGate} from 'redux-persist/es/integration/react'
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 LogBox.ignoreAllLogs();
+//We need the combineReducers function to group up all the reducers into one so that we can pass it to the redux-persist.
 const rootReducer = combineReducers({
   imageReducer: reducer,
   

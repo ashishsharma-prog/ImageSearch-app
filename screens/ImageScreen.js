@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   FlatList,
-  Image,
-  TextInput,
   ActivityIndicator,
 } from "react-native";
 import ImageComponent from "../components/ImageComponent";
@@ -17,7 +14,7 @@ const ImageScreen = ({navigation,route}) => {
     // console.log(route)
     const dispatch = useDispatch()
     const SearchingItem = route.params?.searchItem
-    const NumberOfGrid = route.params?.Grid ? route.params?.Grid : 2;
+    const NumberOfGrid = route.params?.Grid ? route.params?.Grid : 2;//get this value from header component
     const NumberOfKey = route.params?.key ? route.params?.key : 2;
     // const NumberOfGrid = route.params?.GridImage 
     // const NumberOfKey = route.params?.keyImage 
@@ -27,8 +24,6 @@ const [Image, setImage] = useState([])
 const [currentPage,setCurrentPage] = useState(1)
    const [isloading, setLoading] = useState(false);
    
-   const AllData = useSelector(state=>state.imageReducer)
-    //  console.log(AllData)
 useEffect(()=>{
     
     fetchImage()
@@ -60,10 +55,11 @@ return(
     </View>:null
 )
 }
+//this function is for pagination
 const loadMoreItem = ()=>{
     
-    setCurrentPage(currentPage +1)
-    fetchImage()
+    setCurrentPage(currentPage +1)//increase the size of the page
+    
 }
 
 
